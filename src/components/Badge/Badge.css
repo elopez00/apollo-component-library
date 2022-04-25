@@ -1,0 +1,14 @@
+.apollo-component-library-badge-component {
+    display: inline-block;
+    position: relative;
+}
+
+.apollo-component-library-badge-component-badge {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: red;
+    height: 10px;
+    width: 10px;
+}

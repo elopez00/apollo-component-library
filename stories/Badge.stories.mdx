@@ -1,0 +1,60 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import { linkTo } from '@storybook/addon-links';
+
+import { Badge } from '../src';
+
+import { SomeExample } from './examples/Badge';
+
+<Meta title="Layout/Badge" component={Badge} />
+
+# Badge
+
+Summary of what the component is and it's purpose for existing in Apollo.
+
+## References (If Applicable)
+
+If the component has dependent children, you should also add a references table to 
+the Storybook documentation of those children.
+
+(This is an example from the Dropdown component)
+-   [Menu](?path=/docs/interfacing-menu--listbox-menu)
+-   [Option](?path=/docs/interfacing-option--default)
+-   [Button](?path=/docs/layout-button--standard-button)
+-   [Icon](?path=/docs/layout-icon--default)
+
+## Table of Contents
+
+Add a table of contents so that users can quickly look over the documentation with
+convenient hyperlinks. Also link to headers that you place throughout to elaborate
+on the sections. This will be useful for the user when they have to scroll over
+everything.
+
+- [Setup](#setup)
+- [Functionality](#functionality)
+- [Other Props & Functionalities](#other-props--functionalities)
+
+## Functionality
+
+Explain different behaviors this component may have. This is an excellent place to talk
+about the `type` prop if it exists. Also it's good to show what different forms this
+component can take. Also explain some features that may be unclear to somone using 
+Apollo
+for the first time.
+
+Always give examples of setup and steps using canvases
+
+<Canvas>
+	<Story name="Example Name" args={{ show: true }}>
+		{SomeExample.bind({})}
+	</Story>
+</Canvas>
+
+> Call out any important details the user might miss with the `>` escape character.
+
+## Other Props & Functionalities
+
+Transition focus to other functionalities. Maybe introduce some of them or talk about 
+other props briefly. That way the user isn't abruptly introduce to the ArgsTable 
+below.
+
+<ArgsTable of={Badge} />

@@ -34,6 +34,7 @@ export const ButtonGroup: FC<IButtonGroup> = ({
     ...props
 }) => {
     gaurdApolloName(props, 'ButtonGroup');
+
     /**
      * Renders all button group buttons and caches chlidren
      *
