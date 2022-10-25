@@ -49,7 +49,6 @@
 .apollo[data-apollo="Button"].none {
     padding: 0;
     border-radius: none;
-    cursor: default;
     background: none;
     outline: none;
     transition: none;

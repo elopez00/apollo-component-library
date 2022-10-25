@@ -1,0 +1,50 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import { linkTo } from '@storybook/addon-links';
+
+import { DatePicker } from '../src';
+
+import { DatePickerShowCase } from './examples/DatePicker';
+
+<Meta title="Date Picker" component={DatePicker} />
+
+# Date Picker
+
+The `DatePicker` component was created to allow users to select a date from a calendar
+or by typing it in. It is a controlled component, which means the date value is handled
+by the parent component. The `DatePicker` component has built-in validation.
+
+## Table of Contents
+
+- [Functionality](#functionality)
+- [Setup](#setup)
+- [Other Props & Functionalities](#other-props--functionalities)
+
+## Functionality
+
+Here is an example of a DatePicker functionalities
+
+<Canvas>
+	<Story name="Simple Example">
+		{DatePickerShowCase.bind({})}
+	</Story>
+</Canvas>
+
+> Call out any important details the user might miss with the `>` escape character.
+
+## Setup (If Applicable)
+
+This should clearly explain the dependent children role in the component and their
+use in the component being described.
+
+Always give examples of setup and steps using canvases
+
+
+> Call out any important details the user might miss with the `>` escape character.
+
+## Other Props & Functionalities
+
+Transition focus to other functionalities. Maybe introduce some of them or talk about 
+other props briefly. That way the user isn't abruptly introduce to the ArgsTable 
+below.
+
+<ArgsTable of={DatePicker} />

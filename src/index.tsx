@@ -30,6 +30,7 @@ export { Avatar } from './components/Avatar/Avatar';
 export { Grid } from './components/Grid/Grid';
 export { Image } from './components/Image/Image';
 export { Spinner } from './components/Spinner/Spinner';
+export { DatePicker } from './components/DatePicker/DatePicker';
 export { ApolloCSS } from './util/Theming';
 
 export type {
@@ -47,4 +48,4 @@ export type {
 } from './interfaces/Properties';
 export type { ApolloTheme } from './interfaces/Theme';
 
-export { default as HandleOverloads } from './util/HandleOverloads';
+// export { default as HandleOverloads } from './util/HandleOverloads';

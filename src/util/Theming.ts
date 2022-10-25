@@ -222,6 +222,7 @@ const createApolloTheme = (theme: ApolloTheme): ApolloTheme => {
             ...getSelectStyle(newTheme, themeName),
             ...getTextStyle(newTheme, themeName),
             ...getIconStyle(newTheme, themeName),
+            ...getDatePickerStyle(newTheme, themeName),
         };
     });
 
@@ -432,6 +433,93 @@ const getTextInputStyle = (theme: ApolloTheme, themeName: string): ApolloTheme =
         TextInput,
         'TextInputLabel/.label': InputLabel,
         'TextInputLabel/.hint': InputHint,
+    };
+};
+
+/**
+ * Text input default theme
+ *
+ * @param theme theme to use
+ * @param themeName theme name
+ * @return text input theme
+ */
+const getDatePickerStyle = (theme: ApolloTheme, themeName: string): ApolloTheme => {
+    const DatePickerTextInput = (theme[themeName] as any)?.DatePicker ?? {};
+    const InputLabel = (theme[themeName] as any)?.DatePickerLabel ?? {};
+    const InputHint = (theme[themeName] as any)?.DatePickerHint ?? {};
+    const themeColor = theme?.[themeName]?.color as CSS.Property.Color;
+
+    // valid input
+    if (!DatePickerTextInput?.outlineColor) {
+        DatePickerTextInput.outlineColor = changeOpacity(themeColor as CSS.Property.Color, 0.3);
+    }
+    if (!DatePickerTextInput?.border) {
+        DatePickerTextInput.border = `1.5px solid ${
+            themeName === 'invalid' ? themeColor : '#E7EBEC'
+        }`;
+    }
+    if (!DatePickerTextInput?.color) {
+        DatePickerTextInput.color = theme?.text?.color as CSS.Property.Color;
+    }
+    if (!DatePickerTextInput?.fontSize) {
+        DatePickerTextInput.fontSize = '1rem';
+    }
+
+    // focused input
+    if (!DatePickerTextInput?.focus) {
+        DatePickerTextInput.focusWithin = {
+            outlineColor: changeOpacity(themeColor, 0.3),
+            border: `1.5px solid ${themeColor}`,
+        };
+    }
+
+    // disabled input
+    if (!DatePickerTextInput?.disabled) {
+        DatePickerTextInput.disabled = {
+            background: '#E7EBEC',
+            cursor: 'not-allowed',
+        };
+    }
+
+    // text input label
+    if (!InputLabel?.color) {
+        InputLabel.color = theme?.text?.color;
+    }
+    if (!InputLabel?.fontSize) {
+        InputLabel.fontSize = '0.9rem';
+    }
+    if (!InputLabel?.paddingBottom) {
+        InputLabel.paddingBottom = '5px';
+    }
+    if (!InputLabel.fontFamily) {
+        InputLabel.fontFamily = theme?.text?.fontFamily;
+    }
+
+    // hint
+    if (!InputHint?.color) {
+        InputHint.color = '#6C8189';
+    }
+    if (!InputHint?.fontSize) {
+        InputHint.fontSize = '0.9rem';
+    }
+    if (!InputHint?.paddingBottom) {
+        InputHint.paddingBottom = '5px';
+    }
+    if (!InputHint.fontFamily) {
+        InputHint.fontFamily = theme?.text?.fontFamily;
+    }
+    if (!InputHint?.paddingTop) {
+        InputHint.paddingTop = '6px';
+    }
+
+    return {
+        'DatePickerTextInputLabel/.inputgroup': DatePickerTextInput,
+        'DatePickerTextInputLabel/.inputgroup input': {
+            fontFamily: DatePickerTextInput?.fontFamily ?? theme?.text?.fontFamily,
+            fontSize: DatePickerTextInput?.fontSize ?? theme?.text?.fontSize,
+        },
+        'DatePickerTextInputLabel/.label': InputLabel,
+        'DatePickerTextInputLabel/.hint': InputHint,
     };
 };
 
