@@ -109,10 +109,32 @@ export const DateSelect: FC<IDateSelect> = ({
      */
     const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
         if (!open) toggleOpen(true); // ensure menu is open
+
         // ensure change is cleared
         if (change?.length || change?.length === 0) setChange(undefined);
 
+        // check that the date is valid
+        const isValidFormat = event.target.value.match(
+            '^(0?[1-9]|1[0-2])[-./](0?[1-9]|[12][0-9]|3[01])[-./]([12][0-9]{3})$'
+        );
+
         setValue(event.target.value);
+
+        if (isValidFormat) {
+            // check that the date is valid when february accounting for leap years
+            const [monthStr, dayStr, yearStr] = event.target.value.split('/');
+
+            const month = parseInt(monthStr);
+            const day = parseInt(dayStr);
+            const year = parseInt(yearStr);
+
+            // check that date is valid with leap years
+            if ((month === 2 && day > 29) || (day === 29 && year % 4 !== 0)) {
+                return;
+            }
+        } else return;
+
+        setChange(event.target.value);
     };
 
     /**
@@ -144,7 +166,13 @@ export const DateSelect: FC<IDateSelect> = ({
                 height={maxHeight}
                 width={maxWidth}
             >
-                <Calendar theme={theme} id={`${label} Calendar`} />
+                <Calendar
+                    theme={theme}
+                    value={change ? [change] : undefined}
+                    startDate={change ? change : undefined}
+                    onChange={(date) => setChange(date[0])}
+                    id={`${label} Calendar`}
+                />
             </Menu>
         );
 
