@@ -15,6 +15,8 @@ interface IAccordion extends Apollo<'Accordion'> {
     override?: boolean;
     /** The max height of the pannel */
     panelHeight?: number;
+    /** The max height of the pannel */
+    panelHeightOverride?: number;
     /** The header of the accordion */
     header?: ReactNode;
     /** Will handle what happens on button click */
@@ -32,12 +34,20 @@ export const Accordion: FC<IAccordion> = ({
     defaultOpen = false,
     panelHeight = 200,
     override,
+    panelHeightOverride,
     children,
     onClick,
     ...props
 }) => {
     gaurdApolloName(props, 'Accordion');
-    const accordion = useAccordion(defaultOpen, panelHeight, override, onClick);
+    const accordion = useAccordion(
+        defaultOpen,
+        panelHeight,
+        override,
+        onClick,
+        panelHeightOverride
+    );
+    console.log(accordion.height);
 
     return (
         <div {...props} className="apollo">
@@ -63,7 +73,7 @@ export const Accordion: FC<IAccordion> = ({
                 id={`${id}-panel`}
                 aria-labelledby={`${id}-header`}
                 ref={accordion.ref}
-                style={{ height: accordion.height }}
+                style={{ height: accordion.height, overflow: accordion.open ? 'auto' : 'hidden' }}
             >
                 {typeof children === 'string' ? <Text>{children}</Text> : children}
             </section>
@@ -88,13 +98,15 @@ interface IAccordionValues {
  * @param panelHeight - default panel height
  * @param override - default open state
  * @param onClick - onClick handler
+ * @param panelHeightOverride - override panel height
  * @return Accordion values
  */
 const useAccordion = (
     defaultOpen: boolean,
     panelHeight?: number,
     override?: boolean,
-    onClick?: MouseEventHandler<HTMLButtonElement>
+    onClick?: MouseEventHandler<HTMLButtonElement>,
+    panelHeightOverride?: number
 ): IAccordionValues => {
     const [open, setOpen] = useState(Boolean(override ?? defaultOpen));
     const ref = useRef<HTMLDivElement>(null);
@@ -109,7 +121,8 @@ const useAccordion = (
     // determine what height the panel should be on open
     const refPanelHeight = ref.current?.scrollHeight ?? 0;
     const maxPanelHeight = panelHeight ?? refPanelHeight;
-    const openHeight = maxPanelHeight > refPanelHeight ? refPanelHeight : maxPanelHeight;
+
+    const openHeight = panelHeightOverride ?? Math.min(maxPanelHeight, refPanelHeight);
 
     return {
         open,
